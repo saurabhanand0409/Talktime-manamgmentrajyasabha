@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Rajya Sabha Talk Time Management System - Official Parliament of India">
+    <title>Dashboard - Rajya Sabha Talk Time Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/parliament_logo.png') }}" type="image/png">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <img src="{{ url_for('static', filename='images/parliament_logo.png') }}" alt="Parliament Logo" class="logo">
+            <div>
+                <h1 class="header-title">Rajya Sabha Talk Time Management System</h1>
+                <p class="header-subtitle">Parliament of India</p>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <span id="connection-status" class="status-indicator status-disconnected">
+                <span class="status-dot"></span> Connecting...
+            </span>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        <!-- Chairperson Selection -->
+        <section class="chairperson-section">
+            <span class="chairperson-label">ON THE CHAIR:</span>
+            <div class="select-wrapper">
+                <select id="chairperson-select" class="select-custom">
+                    <option value="">Select a Chairperson</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- Dashboard Menu -->
+        <div class="dashboard-grid">
+            <a href="/zero-hour" class="menu-card">
+                <span class="menu-card-icon">⏰</span>
+                <span class="menu-card-title">Zero Hour</span>
+            </a>
+            
+            <a href="/member-speaking" class="menu-card">
+                <span class="menu-card-icon">🎤</span>
+                <span class="menu-card-title">Member Speaking</span>
+            </a>
+            
+            <a href="/bill-discussions" class="menu-card">
+                <span class="menu-card-icon">📜</span>
+                <span class="menu-card-title">Bill Discussions</span>
+            </a>
+            
+            <a href="#" class="menu-card" onclick="showNotification('Bill Details Entry - Coming Soon', 'info')">
+                <span class="menu-card-icon">📝</span>
+                <span class="menu-card-title">Bill Details Entry</span>
+            </a>
+            
+            <a href="#" class="menu-card" onclick="showNotification('Message - Coming Soon', 'info')">
+                <span class="menu-card-icon">✉️</span>
+                <span class="menu-card-title">Message</span>
+            </a>
+            
+            <a href="#" class="menu-card" onclick="showNotification('Database Entry - Coming Soon', 'info')">
+                <span class="menu-card-icon">🗄️</span>
+                <span class="menu-card-title">Database Entry</span>
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">© <strong>Bihar Communications Pvt. Ltd</strong> 2025. All rights reserved.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

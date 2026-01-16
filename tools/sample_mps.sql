@@ -1,0 +1,33 @@
+-- Sample MP data for Rajya Sabha
+-- Run this in MySQL to insert sample data
+
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (1, 'M. Venkaiah Naidu', 'BJP', 'Karnataka', '2024-04-01') ON DUPLICATE KEY UPDATE name='M. Venkaiah Naidu', party='BJP', state='Karnataka';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (2, 'Piyush Goyal', 'BJP', 'Maharashtra', '2024-04-01') ON DUPLICATE KEY UPDATE name='Piyush Goyal', party='BJP', state='Maharashtra';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (3, 'Nirmala Sitharaman', 'BJP', 'Karnataka', '2024-04-01') ON DUPLICATE KEY UPDATE name='Nirmala Sitharaman', party='BJP', state='Karnataka';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (4, 'Smriti Irani', 'BJP', 'Gujarat', '2024-04-01') ON DUPLICATE KEY UPDATE name='Smriti Irani', party='BJP', state='Gujarat';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (5, 'Ashwini Vaishnaw', 'BJP', 'Odisha', '2024-04-01') ON DUPLICATE KEY UPDATE name='Ashwini Vaishnaw', party='BJP', state='Odisha';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (6, 'Jyotiraditya Scindia', 'BJP', 'Madhya Pradesh', '2024-04-01') ON DUPLICATE KEY UPDATE name='Jyotiraditya Scindia', party='BJP', state='Madhya Pradesh';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (7, 'Ram Nath Kovind', 'BJP', 'Uttar Pradesh', '2024-04-01') ON DUPLICATE KEY UPDATE name='Ram Nath Kovind', party='BJP', state='Uttar Pradesh';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (8, 'Sarbananda Sonowal', 'BJP', 'Assam', '2024-04-01') ON DUPLICATE KEY UPDATE name='Sarbananda Sonowal', party='BJP', state='Assam';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (9, 'Dharmendra Pradhan', 'BJP', 'Madhya Pradesh', '2024-04-01') ON DUPLICATE KEY UPDATE name='Dharmendra Pradhan', party='BJP', state='Madhya Pradesh';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (10, 'Mukhtar Abbas Naqvi', 'BJP', 'Jharkhand', '2024-04-01') ON DUPLICATE KEY UPDATE name='Mukhtar Abbas Naqvi', party='BJP', state='Jharkhand';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (11, 'Bhupender Yadav', 'BJP', 'Rajasthan', '2024-04-01') ON DUPLICATE KEY UPDATE name='Bhupender Yadav', party='BJP', state='Rajasthan';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (12, 'Mansukh Mandaviya', 'BJP', 'Gujarat', '2024-04-01') ON DUPLICATE KEY UPDATE name='Mansukh Mandaviya', party='BJP', state='Gujarat';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (13, 'Rajeev Chandrasekhar', 'BJP', 'Karnataka', '2024-04-01') ON DUPLICATE KEY UPDATE name='Rajeev Chandrasekhar', party='BJP', state='Karnataka';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (14, 'John Barla', 'BJP', 'West Bengal', '2024-04-01') ON DUPLICATE KEY UPDATE name='John Barla', party='BJP', state='West Bengal';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (15, 'Mallikarjun Kharge', 'INC', 'Karnataka', '2024-04-01') ON DUPLICATE KEY UPDATE name='Mallikarjun Kharge', party='INC', state='Karnataka';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (16, 'Jairam Ramesh', 'INC', 'Karnataka', '2024-04-01') ON DUPLICATE KEY UPDATE name='Jairam Ramesh', party='INC', state='Karnataka';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (17, 'P. Chidambaram', 'INC', 'Tamil Nadu', '2024-04-01') ON DUPLICATE KEY UPDATE name='P. Chidambaram', party='INC', state='Tamil Nadu';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (18, 'Digvijaya Singh', 'INC', 'Madhya Pradesh', '2024-04-01') ON DUPLICATE KEY UPDATE name='Digvijaya Singh', party='INC', state='Madhya Pradesh';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (19, 'Randeep Surjewala', 'INC', 'Haryana', '2024-04-01') ON DUPLICATE KEY UPDATE name='Randeep Surjewala', party='INC', state='Haryana';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (20, 'Pramod Tiwari', 'INC', 'Uttar Pradesh', '2024-04-01') ON DUPLICATE KEY UPDATE name='Pramod Tiwari', party='INC', state='Uttar Pradesh';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (21, 'Derek O'Brien', 'TMC', 'West Bengal', '2024-04-01') ON DUPLICATE KEY UPDATE name='Derek O'Brien', party='TMC', state='West Bengal';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (22, 'Sukhendu Sekhar Ray', 'TMC', 'West Bengal', '2024-04-01') ON DUPLICATE KEY UPDATE name='Sukhendu Sekhar Ray', party='TMC', state='West Bengal';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (23, 'Mahua Moitra', 'TMC', 'West Bengal', '2024-04-01') ON DUPLICATE KEY UPDATE name='Mahua Moitra', party='TMC', state='West Bengal';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (24, 'Dola Sen', 'TMC', 'West Bengal', '2024-04-01') ON DUPLICATE KEY UPDATE name='Dola Sen', party='TMC', state='West Bengal';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (25, 'Raghav Chadha', 'AAP', 'Punjab', '2024-04-01') ON DUPLICATE KEY UPDATE name='Raghav Chadha', party='AAP', state='Punjab';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (26, 'Sanjay Singh', 'AAP', 'Delhi', '2024-04-01') ON DUPLICATE KEY UPDATE name='Sanjay Singh', party='AAP', state='Delhi';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (27, 'Sandeep Pathak', 'AAP', 'Delhi', '2024-04-01') ON DUPLICATE KEY UPDATE name='Sandeep Pathak', party='AAP', state='Delhi';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (28, 'Swati Maliwal', 'AAP', 'Delhi', '2024-04-01') ON DUPLICATE KEY UPDATE name='Swati Maliwal', party='AAP', state='Delhi';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (29, 'Tiruchi Siva', 'DMK', 'Tamil Nadu', '2024-04-01') ON DUPLICATE KEY UPDATE name='Tiruchi Siva', party='DMK', state='Tamil Nadu';
+INSERT INTO parliament_seats (seat_no, name, party, state, tenure_start) VALUES (30, 'Kanimozhi', 'DMK', 'Tamil Nadu', '2024-04-01') ON DUPLICATE KEY UPDATE name='Kanimozhi', party='DMK', state='Tamil Nadu';
