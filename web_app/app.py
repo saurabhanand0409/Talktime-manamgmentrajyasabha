@@ -4,11 +4,12 @@ Flask Backend with WebSocket support
 """
 
 import os
+import sys
 import socket
 import threading
 import logging
 from datetime import datetime, timezone, timedelta
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, send_from_directory, abort
 from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 import mysql.connector
@@ -32,10 +33,15 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Flask app setup
+APP_DIR = os.path.dirname(__file__)
+BASE_DIR = getattr(sys, '_MEIPASS', APP_DIR)
+REACT_DIST_DIR = os.path.join(BASE_DIR, 'react_dist')
+
 app = Flask(__name__, static_folder='static', template_folder='templates')
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'parliament-secret-key-2024')
 CORS(app)
-socketio = SocketIO(app, cors_allowed_origins="*")
+# Force threading to avoid missing async backends in packaged EXE
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode='threading')
 
 # Shared broadcast feed state for remote broadcast viewers
 broadcast_state = {
@@ -378,21 +384,29 @@ def get_all_members():
 @app.route('/')
 def index():
     """Main dashboard page."""
+    if os.path.exists(os.path.join(REACT_DIST_DIR, 'index.html')):
+        return send_from_directory(REACT_DIST_DIR, 'index.html')
     return render_template('index.html')
 
 @app.route('/zero-hour')
 def zero_hour():
     """Zero Hour page."""
+    if os.path.exists(os.path.join(REACT_DIST_DIR, 'index.html')):
+        return send_from_directory(REACT_DIST_DIR, 'index.html')
     return render_template('zero_hour.html')
 
 @app.route('/member-speaking')
 def member_speaking():
     """Member Speaking page."""
+    if os.path.exists(os.path.join(REACT_DIST_DIR, 'index.html')):
+        return send_from_directory(REACT_DIST_DIR, 'index.html')
     return render_template('member_speaking.html')
 
 @app.route('/bill-discussions')
 def bill_discussions():
     """Bill Discussions page."""
+    if os.path.exists(os.path.join(REACT_DIST_DIR, 'index.html')):
+        return send_from_directory(REACT_DIST_DIR, 'index.html')
     return render_template('bill_discussions.html')
 
 # API Routes
@@ -1931,6 +1945,17 @@ def api_get_bill_member_totals(bill_id):
         return jsonify({'success': False, 'error': str(err)}), 500
     finally:
         connection.close()
+
+
+# React SPA fallback (for packaged demo / production build)
+@app.route('/<path:asset_path>')
+def serve_react_assets(asset_path):
+    if os.path.exists(os.path.join(REACT_DIST_DIR, 'index.html')):
+        file_path = os.path.join(REACT_DIST_DIR, asset_path)
+        if os.path.isfile(file_path):
+            return send_from_directory(REACT_DIST_DIR, asset_path)
+        return send_from_directory(REACT_DIST_DIR, 'index.html')
+    return abort(404)
 
 # WebSocket Events
 @socketio.on('connect')

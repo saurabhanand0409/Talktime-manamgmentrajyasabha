@@ -832,15 +832,21 @@ export default function LogList() {
         if (!selectedCategory) return;
         
         const categoryLogs = getLogsByCategory(selectedCategory.type);
-        const headers = selectedCategory.type === 'Member Speaking'
-            ? ['S.No', 'Time', 'Member Name', 'Heading', 'Chairperson', 'Duration', 'Notes']
-            : ['S.No', 'Time', 'Member Name', 'Chairperson', 'Duration', 'Notes'];
+        let headers;
+        if (selectedCategory.type === 'Member Speaking') {
+            headers = ['S.No', 'Time', 'Member Name', 'Heading', 'Chairperson', 'Duration', 'Notes'];
+        } else if (selectedCategory.type === 'Zero Hour') {
+            headers = ['S.No', 'Time', 'Member Name', 'Party', 'Chairperson', 'Allotted', 'Duration', 'Notes'];
+        } else {
+            headers = ['S.No', 'Time', 'Member Name', 'Chairperson', 'Duration', 'Notes'];
+        }
         
         let csvContent = headers.join(',') + '\n';
         
         categoryLogs.forEach((log, index) => {
-            const row = selectedCategory.type === 'Member Speaking'
-                ? [
+            let row;
+            if (selectedCategory.type === 'Member Speaking') {
+                row = [
                     index + 1,
                     `"${formatTime(log.start_time)}"`,
                     `"${log.member_name || '-'}"`,
@@ -848,8 +854,20 @@ export default function LogList() {
                     `"${log.chairperson || '-'}"`,
                     `"${formatDuration(log.duration_seconds)}"`,
                     `"${log.notes || '-'}"`
-                ]
-                : [
+                ];
+            } else if (selectedCategory.type === 'Zero Hour') {
+                row = [
+                    index + 1,
+                    `"${formatTime(log.start_time)}"`,
+                    `"${log.member_name || '-'}"`,
+                    `"${log.party || '-'}"`,
+                    `"${log.chairperson || '-'}"`,
+                    `"${formatDuration(log.allotted_seconds || 180)}"`,
+                    `"${formatDuration(log.duration_seconds)}"`,
+                    `"${log.notes || '-'}"`
+                ];
+            } else {
+                row = [
                     index + 1,
                     `"${formatTime(log.start_time)}"`,
                     `"${log.member_name || '-'}"`,
@@ -857,11 +875,14 @@ export default function LogList() {
                     `"${formatDuration(log.duration_seconds)}"`,
                     `"${log.notes || '-'}"`
                 ];
+            }
             csvContent += row.join(',') + '\n';
         });
         
         // Add total row
-        csvContent += `\n,,,Total:,"${formatDuration(getTotalDuration(selectedCategory.type))}",\n`;
+        const totalColSpan = selectedCategory.type === 'Zero Hour' ? 6 : (selectedCategory.type === 'Member Speaking' ? 5 : 4);
+        const emptyColsForTotal = ','.repeat(totalColSpan - 1);
+        csvContent += `\n${emptyColsForTotal}Total:,"${formatDuration(getTotalDuration(selectedCategory.type))}",\n`;
         
         const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
         const link = document.createElement('a');
@@ -908,6 +929,7 @@ export default function LogList() {
                             ${selectedCategory.type === 'Member Speaking' ? '<th>Heading</th>' : ''}
                             <th>Party</th>
                             <th>Chairperson</th>
+                            ${selectedCategory.type === 'Zero Hour' ? '<th>Allotted</th>' : ''}
                             <th>Duration</th>
                         </tr>
                     </thead>
@@ -920,11 +942,12 @@ export default function LogList() {
                                 ${selectedCategory.type === 'Member Speaking' ? `<td>${log.heading || '-'}</td>` : ''}
                                 <td>${log.party || '-'}</td>
                                 <td>${log.chairperson || '-'}</td>
+                                ${selectedCategory.type === 'Zero Hour' ? `<td>${formatDuration(log.allotted_seconds || 180)}</td>` : ''}
                                 <td>${formatDuration(log.duration_seconds)}</td>
                             </tr>
                         `).join('')}
                         <tr class="total">
-                            <td colspan="${selectedCategory.type === 'Member Speaking' ? 6 : 5}" style="text-align: right;">Total Duration:</td>
+                            <td colspan="${selectedCategory.type === 'Member Speaking' ? 6 : (selectedCategory.type === 'Zero Hour' ? 6 : 5)}" style="text-align: right;">Total Duration:</td>
                             <td>${formatDuration(totalDuration)}</td>
                         </tr>
                     </tbody>
@@ -1105,6 +1128,9 @@ export default function LogList() {
                                         )}
                                         <th className="px-4 py-3 text-left font-semibold text-gray-700">Party</th>
                                         <th className="px-4 py-3 text-left font-semibold text-gray-700">Chairperson</th>
+                                        {selectedCategory.type === 'Zero Hour' && (
+                                            <th className="px-4 py-3 text-center font-semibold text-gray-700">Allotted</th>
+                                        )}
                                         <th className="px-4 py-3 text-center font-semibold text-gray-700">Duration</th>
                                         <th className="px-4 py-3 text-center font-semibold text-gray-700 w-16">Delete</th>
                                 </tr>
@@ -1112,7 +1138,7 @@ export default function LogList() {
                             <tbody>
                                     {getLogsByCategory(selectedCategory.type).length === 0 ? (
                                     <tr>
-                                        <td colSpan={selectedCategory.type === 'Member Speaking' ? 9 : 8} className="text-center py-8 text-gray-500">
+                                        <td colSpan={selectedCategory.type === 'Member Speaking' ? 9 : (selectedCategory.type === 'Zero Hour' ? 10 : 8)} className="text-center py-8 text-gray-500">
                                                 No entries for {selectedCategory.type} on this date.
                                         </td>
                                     </tr>
@@ -1131,6 +1157,11 @@ export default function LogList() {
                                             )}
                                             <td className="px-4 py-3 text-gray-600">{log.party || '-'}</td>
                                             <td className="px-4 py-3 text-gray-600">{log.chairperson || '-'}</td>
+                                            {selectedCategory.type === 'Zero Hour' && (
+                                                <td className="px-4 py-3 text-center font-mono font-semibold text-blue-700">
+                                                    {formatDuration(log.allotted_seconds || 180)}
+                                                </td>
+                                            )}
                                             <td className="px-4 py-3 text-center font-mono font-bold text-red-800">
                                                 {formatDuration(log.duration_seconds)}
                                             </td>

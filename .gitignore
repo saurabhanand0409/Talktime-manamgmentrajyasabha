@@ -18,3 +18,11 @@ Thumbs.db
 
 *.log
 *.tmp
+*.spec
+build/
+dist/
+demo_release/
+*.zip
+web_app/react_dist/
+*.pyc
+__pycache__/
